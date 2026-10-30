@@ -34,3 +34,6 @@ Thumbs.db
 *.backup
 *.bak
 *.date-backup
+
+# Temporary deployment backups
+*.deploy-backup

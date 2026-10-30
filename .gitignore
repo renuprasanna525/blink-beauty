@@ -37,3 +37,8 @@ Thumbs.db
 
 # Temporary deployment backups
 *.deploy-backup
+
+# Temporary config backups
+*.before-aiven-backup
+
+*.ssl-backup

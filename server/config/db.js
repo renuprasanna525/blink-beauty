@@ -1,4 +1,5 @@
 ﻿const mysql = require("mysql2/promise");
+const fs = require("fs");
 require("dotenv").config();
 
 const dbConfig = {
@@ -12,10 +13,17 @@ const dbConfig = {
   queueLimit: 0,
 };
 
-// Support Aiven SSL using a Base64-encoded CA certificate.
-const sslCa = process.env.DB_SSL_CA_BASE64
-  ? Buffer.from(process.env.DB_SSL_CA_BASE64, "base64").toString("utf8")
-  : process.env.DB_SSL_CA;
+// Load the Aiven CA certificate from Render Secret Files.
+// Fall back to environment-variable certificate values if needed.
+let sslCa = null;
+
+if (fs.existsSync("/etc/secrets/ca.pem")) {
+  sslCa = fs.readFileSync("/etc/secrets/ca.pem", "utf8");
+} else if (process.env.DB_SSL_CA_BASE64) {
+  sslCa = Buffer.from(process.env.DB_SSL_CA_BASE64, "base64").toString("utf8");
+} else if (process.env.DB_SSL_CA) {
+  sslCa = process.env.DB_SSL_CA;
+}
 
 if (sslCa) {
   dbConfig.ssl = {

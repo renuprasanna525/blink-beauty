@@ -42,3 +42,5 @@ Thumbs.db
 *.before-aiven-backup
 
 *.ssl-backup
+
+*.secret-file-backup

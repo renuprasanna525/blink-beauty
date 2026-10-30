@@ -1,0 +1,36 @@
+﻿# Environment variables and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# React build output
+client/dist/
+client/dist-ssr/
+
+# Logs and temporary files
+*.log
+npm-debug.log*
+*.local
+
+# Local database exports and backups
+*.sql
+*.sqlite
+*.sqlite3
+backups/
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary backup files
+*.backup
+*.bak
+*.date-backup

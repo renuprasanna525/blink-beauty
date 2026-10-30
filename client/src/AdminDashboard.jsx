@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { BsGrid, BsScissors, BsCalendarCheck, BsPeople, BsBoxArrowRight, BsClockHistory, BsStars } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
+import { API_URL } from "./api";
 import "./AdminDashboard.css";
 
-const API_URL = "http://localhost:5000/api";
 
 function AdminDashboard() {
     const navigate = useNavigate();

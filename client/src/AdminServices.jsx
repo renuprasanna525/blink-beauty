@@ -1,8 +1,8 @@
-﻿import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "./api";
 import "./AdminServices.css";
 
-const API_URL = "http://localhost:5000/api";
 
 const emptyForm = {
     title: "",

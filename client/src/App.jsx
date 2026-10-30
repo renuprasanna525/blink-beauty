@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { API_URL } from "./api";
 import AdminLogin from "./AdminLogin";
 import AdminDashboard from "./AdminDashboard";
 import AdminServices from "./AdminServices";
@@ -158,7 +159,6 @@ function SalonHome() {
   const [bookingSubmitting, setBookingSubmitting] = useState(false);
   const [bookingMessage, setBookingMessage] = useState({ type: "", text: "" });
 
-  const API_URL = "http://localhost:5000/api";
 
   useEffect(() => {
     const loadBookingServices = async () => {

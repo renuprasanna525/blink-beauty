@@ -1,7 +1,7 @@
-﻿import json
+import json
 import re
 from datetime import datetime
-
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.db import transaction
@@ -55,7 +55,7 @@ def public_hero(request):
     banner_image = ""
 
     if hero.banner_image:
-        banner_image = request.build_absolute_uri(hero.banner_image.url)
+        banner_image = get_public_image_url(request, hero.banner_image)
 
     return JsonResponse(
         {
@@ -98,7 +98,7 @@ def public_about(request):
     background_image = ""
 
     if about.background_image:
-        background_image = request.build_absolute_uri(about.background_image.url)
+        background_image = get_public_image_url(request, about.background_image)
 
     highlights = [
         {
@@ -153,7 +153,7 @@ def public_services(request):
         image_url = ""
 
         if category.image:
-            image_url = request.build_absolute_uri(category.image.url)
+            image_url = get_public_image_url(request, category.image)
 
         categories.append(
             {
@@ -206,7 +206,7 @@ def public_gallery(request):
         image_url = ""
 
         if item.image:
-            image_url = request.build_absolute_uri(item.image.url)
+            image_url = get_public_image_url(request, item.image)
 
         items.append(
             {
@@ -506,7 +506,7 @@ def public_branches(request):
     background_image = ""
 
     if section.background_image:
-        background_image = request.build_absolute_uri(section.background_image.url)
+        background_image = get_public_image_url(request, section.background_image)
 
     items = [
         {
@@ -619,7 +619,7 @@ def public_instagram(request):
             images.append(
                 {
                     "id": item.id,
-                    "image": request.build_absolute_uri(item.image.url),
+                    "image": get_public_image_url(request, item.image),
                     "alt_text": item.alt_text,
                     "sort_order": item.sort_order,
                 }
@@ -856,3 +856,36 @@ def create_public_booking(request):
             },
             status=500,
         )
+
+def get_public_image_url(request, image_field):
+    if not image_field:
+        return ""
+
+    image_path = image_field.name.replace("\\", "/")
+
+    frontend_url = getattr(
+        settings,
+        "DJANGO_FRONTEND_URL",
+        "",
+    ).rstrip("/")
+
+    frontend_images = {
+        "website/hero/herobanner.png": "/images/herobanner.png",
+        "website/about/aboutimg.png": "/images/aboutimg.png",
+        "website/services/aboutimg.png": "/images/aboutimg.png",
+        "website/services/hairimg.png": "/images/hairimg.png",
+        "website/services/mensalon.png": "/images/mensalon.png",
+        "website/services/servicemakeup.png": "/images/servicemakeup.png",
+        "website/branches/servicemakeup.png": "/images/servicemakeup.png",
+        "website/gallery/gallery1.jpg": "/images/gallery1.jpg",
+        "website/gallery/gallery2.jpg": "/images/gallery2.jpg",
+        "website/gallery/gallery3.jpg": "/images/gallery3.jpg",
+        "website/gallery/gallery4.jpg": "/images/gallery4.jpg",
+        "website/gallery/gallery5.jpg": "/images/gallery5.jpg",
+    }
+
+    if frontend_url and image_path in frontend_images:
+        return f"{frontend_url}{frontend_images[image_path]}"
+
+    # Preserve the existing local development behavior.
+    return request.build_absolute_uri(image_field.url)

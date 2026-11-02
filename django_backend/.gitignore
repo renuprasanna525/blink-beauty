@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+db.sqlite3
+media/
+staticfiles/
+
+# Local development and one-time maintenance scripts
+add_services_api.py
+fix_services_url.py
+seed_gallery.py
+seed_services.py

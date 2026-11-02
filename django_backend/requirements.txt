@@ -1,0 +1,11 @@
+﻿Django==6.0.3
+asgiref==3.13.0
+django-cors-headers==4.9.0
+django-jazzmin==3.0.5
+mysqlclient==2.2.8
+Pillow==13.0.0
+python-dotenv==1.2.4
+sqlparse==0.6.0
+tzdata==2026.6
+gunicorn==23.0.0
+whitenoise==6.9.0

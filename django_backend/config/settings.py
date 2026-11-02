@@ -8,6 +8,8 @@ ROOT_DIR = BASE_DIR.parent
 
 load_dotenv(BASE_DIR / ".env")
 
+DJANGO_FRONTEND_URL = os.getenv("DJANGO_FRONTEND_URL", "").rstrip("/")
+
 SECRET_KEY = os.getenv(
     "DJANGO_SECRET_KEY",
     "development-only-secret-key-change-before-deployment"
@@ -204,3 +206,4 @@ LOGGING = {
         },
     },
 }
+

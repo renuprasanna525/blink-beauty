@@ -1,35 +1,50 @@
-#root {
+﻿#root {
   width: 100%;
   min-height: 100vh;
 }
 
 main {
   width: 100%;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 /* =========================
-   NAVBAR - DESKTOP
+   NAVBAR - GLASSMORPHISM
 ========================= */
 
 .navbar {
-  position: relative;
-  z-index: 10;
-  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+
   width: 100%;
-  padding: 22px 4%;
-  background: rgba(115, 112, 112, 0.06);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  min-height: 76px;
+  padding: 10px 4%;
+
+  background: rgba(35, 15, 48, 0.58);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 8px 30px rgba(20, 5, 30, 0.12);
 }
 
-/* BLINK logo */
+/* BRAND */
+
 .brand {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: flex-start;
+  gap: 0;
+
+  justify-self: start;
   flex-shrink: 0;
+
   color: #fff;
   text-decoration: none;
 }
@@ -37,81 +52,115 @@ main {
 .brand-word {
   display: inline-flex;
   align-items: baseline;
+
   font-family: "Manrope", sans-serif;
-  font-size: 32px;
+  font-size: 25px;
   line-height: 1;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
 }
 
 .brand-initial {
   color: #7413C9;
   font-weight: 800;
+  font-family: "Playfair Display", serif;
 }
 
 .brand-rest {
   color: #fff;
-  font-weight: 400;
+  font-weight: 500;
+  font-family: "Playfair Display", serif;
 }
 
 .brand small {
-  margin-top: 4px;
+  display: block;
+  margin-top: 2px;
+
   color: #fff;
   font-family: "Manrope", sans-serif;
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 600;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.1px;
+  line-height: 1.2;
 }
 
 .brand-mark {
   display: none;
 }
 
-/* Desktop navigation links */
+/* CENTER NAVIGATION */
+
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  justify-content: center;
+  gap: 20px;
 }
 
-.nav-links > a {
+.nav-links>a {
   color: #fff;
   font-family: "Manrope", sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   text-decoration: none;
+  white-space: nowrap;
   transition: color 0.3s ease;
 }
 
-.nav-links > a:hover {
+.nav-links>a:hover {
   color: #DD33F2;
 }
 
-.nav-links > .nav-book {
-  padding: 13px 20px;
+/* DESKTOP BOOKING BUTTON */
+
+.nav-book {
+  justify-self: end;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 20px;
+
   color: #fff;
-  background: #7413C9;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 28px;
+  background: linear-gradient(135deg, #7413C9, #DD33F2);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 30px;
+
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
   font-weight: 800;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+
+  transition: all 0.3s ease;
 }
 
-.nav-links > .nav-book:hover {
+.nav-book:hover {
   color: #fff;
-  background: #DD33F2;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 18px rgba(221, 51, 242, 0.35);
 }
 
-/* Hamburger button - hidden on desktop */
+.mobile-nav-book {
+  display: none;
+}
+
+/* MOBILE MENU BUTTON */
+
 .menu-toggle {
   display: none;
+
   color: #fff;
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 8px;
-  padding: 8px 12px;
-  font-size: 24px;
+
+  padding: 7px 12px;
+  font-size: 23px;
   cursor: pointer;
 }
-
 
 /* =========================
    HERO SECTION
@@ -134,13 +183,11 @@ main {
   z-index: 0;
   inset: 0;
   background:
-    linear-gradient(
-      90deg,
+    linear-gradient(90deg,
       rgba(14, 2, 24, 0.93) 0%,
       rgba(73, 30, 79, 0.7) 55%,
-      rgba(169, 131, 173, 0.12) 100%
-    ),
-    url("/images/herobanner.png") center / cover no-repeat;
+      rgba(169, 131, 173, 0.12) 100%),
+    var(--hero-banner-image, url("/images/herobanner.png")) center / cover no-repeat;
   animation: heroBackgroundMove 24s ease-in-out infinite alternate;
   will-change: transform;
 }
@@ -149,6 +196,7 @@ main {
   from {
     transform: scale(1.02) translateX(-0.5%);
   }
+
   to {
     transform: scale(1.08) translateX(0.5%);
   }
@@ -166,6 +214,7 @@ main {
   z-index: 2;
 }
 
+
 /* Hero content */
 .hero-content {
   width: min(1280px, 100%);
@@ -174,6 +223,7 @@ main {
   color: #fff;
 }
 
+/* Eyebrow text */
 .hero-content .eyebrow {
   margin-bottom: 24px;
   color: #DD33F2;
@@ -182,16 +232,15 @@ main {
   font-weight: 800;
   letter-spacing: 2.5px;
   line-height: 1.8;
+  text-transform: uppercase;
 }
 
+/* Remove decorative dash */
 .hero-content .eyebrow span {
-  display: inline-block;
-  width: 28px;
-  height: 2px;
-  margin: 0 10px 3px 0;
-  background: #DD33F2;
+  display: none;
 }
 
+/* Main heading */
 .hero-content h1 {
   max-width: 780px;
   margin-bottom: 25px;
@@ -204,20 +253,48 @@ main {
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
 }
 
-.hero-content h1 em {
-  color: #DD33F2;
-  font-style: normal;
-  font-weight: 600;
+/* BLINK */
+.hero-content .hero-heading-main {
+  font-family: "Playfair Display", serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 1.1em;
 }
 
+/* Unisex Salon */
+.hero-content h1 em.hero-heading-emphasis {
+  color: #DD33F2;
+  font-family: "Playfair Display", serif;
+  font-size: 1.4em;
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 0 !important;
+}
+
+/* & ACADEMY */
+.hero-content .hero-heading-suffix {
+  margin-bottom: 8px;
+  color: #fff;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(34px, 4vw, 52px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Hero description */
 .hero-content .hero-description {
   max-width: 490px;
+  margin-bottom: 25px;
   color: #fff;
-  font-family: "Manrope", sans-serif;
+  font-family: "Manrope", sans-serif !important;
   font-size: 18px;
+  font-style: oblique 12deg !important;
   font-weight: 500;
-  line-height: 1.9;
+  margin-top: 0;
+  line-height: 1.8;
 }
+
 
 /* Hero buttons */
 .hero-content .hero-actions {
@@ -299,9 +376,12 @@ main {
 }
 
 @keyframes floatArrow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(7px);
   }
@@ -333,7 +413,7 @@ main {
   }
 }
 
-/* ABOUT BLINK — full-width image section */
+/* ABOUT BLINK â€” full-width image section */
 .about-experience {
   position: relative;
   isolation: isolate;
@@ -345,7 +425,7 @@ main {
   padding: 75px 5.35%;
 
   background-color: #f4e8f1;
-  background-image: url("/images/aboutimg.png");
+  background-image: var(--about-background-image, url("/images/aboutimg.png"));
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -551,69 +631,135 @@ main {
 }
 
 
-/* SERVICES SHOWCASE */
+/* ========================================
+   SERVICES SHOWCASE
+======================================== */
+
 .services-showcase {
   position: relative;
+  isolation: isolate;
   width: 100%;
   min-height: 820px;
-  padding: 45px 5.35%;
+  padding: 55px 5.35%;
   overflow: hidden;
   color: #fff;
   background: #1a0927;
 }
 
-.services-showcase-inner {
-  width: min(1440px, 100%);
-  min-height: 730px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(300px, 0.75fr) minmax(0, 1.25fr);
+/* ========================================
+   FULL SECTION BACKGROUND - ALL IMAGES
+======================================== */
+
+/* FULL SECTION BACKGROUND */
+.services-full-background {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 85% auto;
+
+  background-color: #1a0927;
+  transition: background-size 0.3s ease;
 }
 
-/* LEFT SIDE */
-.services-sidebar {
+/* BACKGROUND OVERLAY */
+.services-full-overlay {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+
+  background: linear-gradient(90deg,
+      rgba(23, 7, 35, 0.88) 0%,
+      rgba(36, 8, 48, 0.82) 50%,
+      rgba(72, 13, 79, 0.68) 100%);
+}
+
+/* ========================================
+   INNER CONTAINER
+======================================== */
+
+.services-showcase-inner {
   position: relative;
-  z-index: 2;
-  padding: 0 0 30px;
+  z-index: 1;
+  width: min(1440px, 100%);
+  margin: 0 auto;
+}
+
+/* ========================================
+   TOP HEADING
+======================================== */
+
+.services-header {
+  width: 100%;
+  padding: 0 0 38px;
 }
 
 .services-eyebrow {
-  margin: 0 0 28px;
+  margin: 0 0 20px;
   color: #ed20f4;
   font-family: "Manrope", sans-serif;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .services-main-heading {
-  margin: 0 0 70px;
+  margin: 0;
   color: #fff;
   font-family: "Playfair Display", serif;
-  font-size: clamp(35px, 4.1vw, 66px);
-  font-weight: 400;
-  line-height: 1.15;
+  font-size: clamp(48px, 5.5vw, 76px);
+  font-weight: 500;
+  line-height: 1.12;
   letter-spacing: -1px;
+}
+
+/* ========================================
+   TWO COLUMN CONTENT
+======================================== */
+
+.services-content-grid {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.75fr) minmax(0, 1.25fr);
+  align-items: stretch;
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ========================================
+   LEFT SIDE - SERVICE SELECTOR
+======================================== */
+
+.services-sidebar {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .services-selector {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 }
 
 .service-selector-button {
+  flex: 1;
   width: 100%;
-  min-height: 77px;
+  min-height: 75px;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 20px;
+  gap: 16px;
+  padding: 14px 12px;
   text-align: left;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.75);
   background: transparent;
   border: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   transition:
     background-color 0.25s ease,
@@ -621,66 +767,46 @@ main {
 }
 
 .service-selector-button:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 0;
 }
 
 .service-selector-button:hover,
 .service-selector-button.active {
   color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .service-selector-button.active {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  box-shadow: inset 3px 0 0 #ed20f4;
 }
 
 .service-selector-number {
   flex-shrink: 0;
   color: #ed20f4;
   font-family: "Playfair Display", serif;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 700;
 }
 
 .service-selector-label {
   font-family: "Manrope", sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 1px;
 }
 
-/* RIGHT SIDE — IMAGE AND CONTENT */
+/* ========================================
+   RIGHT SIDE - SERVICE DETAILS
+======================================== */
+
 .service-detail-panel {
-  position: relative;
-  isolation: isolate;
   min-width: 0;
-  min-height: 730px;
+  min-height: 100%;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  padding: 45px 30px;
-  background: #32103f;
-  border-left: 1px solid rgba(255, 255, 255, 0.22);
-}
-
-.service-detail-background {
-  position: absolute;
-  z-index: -2;
-  inset: 0;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  animation: serviceImageFade 0.7s ease both;
-}
-
-.service-detail-overlay {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(90deg,
-      rgba(23, 7, 35, 0.86) 0%,
-      rgba(36, 8, 48, 0.77) 60%,
-      rgba(72, 13, 79, 0.56) 100%);
+  padding: 30px 22px;
+  background: transparent;
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .service-detail-content {
@@ -689,26 +815,28 @@ main {
 }
 
 .service-detail-content h3 {
-  margin: 0 0 12px;
+  margin: 0 0 16px;
   color: #fff;
   font-family: "Playfair Display", serif;
-  font-size: clamp(38px, 5vw, 76px);
+  font-size: clamp(42px, 5vw, 76px);
   font-weight: 400;
   line-height: 1.1;
 }
 
 .service-detail-description {
-  margin: 0 0 12px;
-  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 22px;
+  color: rgba(255, 255, 255, 0.85);
   font-family: "Manrope", sans-serif;
   font-size: 15px;
   line-height: 1.9;
 }
 
+/* SERVICE LIST */
+
 .service-detail-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px 20px;
+  gap: 14px 12px;
   margin: 0 0 35px;
   padding: 0;
   list-style: none;
@@ -717,7 +845,7 @@ main {
 .service-detail-list li {
   position: relative;
   padding-left: 13px;
-  color: rgba(255, 255, 255, 0.84);
+  color: rgba(255, 255, 255, 0.9);
   font-family: "Manrope", sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -733,6 +861,8 @@ main {
   height: 6px;
   background: #ed20f4;
 }
+
+/* BOOKING BUTTON */
 
 .service-book-button {
   display: inline-flex;
@@ -761,7 +891,10 @@ main {
   font-size: 19px;
 }
 
-/* FADE TRANSITIONS */
+/* ========================================
+   ANIMATIONS
+======================================== */
+
 @keyframes serviceImageFade {
   from {
     opacity: 0;
@@ -786,28 +919,25 @@ main {
   }
 }
 
-/* TABLET */
+/* ========================================
+   TABLET
+======================================== */
+
 @media (max-width: 950px) {
   .services-showcase {
-    padding: 40px 4%;
+    padding: 45px 4%;
   }
 
-  .services-showcase-inner {
-    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
+  .services-header {
+    padding-bottom: 30px;
   }
 
   .services-main-heading {
-    font-size: clamp(34px, 4.5vw, 48px);
-    margin-bottom: 45px;
+    font-size: clamp(42px, 5.5vw, 60px);
   }
 
-  .service-detail-panel {
-    padding: 30px 22px;
-  }
-
-  .service-detail-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
+  .services-content-grid {
+    grid-template-columns: minmax(240px, 0.8fr) minmax(0, 1.2fr);
   }
 
   .service-selector-button {
@@ -816,19 +946,30 @@ main {
   }
 
   .service-selector-label {
-    font-size: 11px;
+    font-size: 12px;
+  }
+
+  .service-detail-panel {
+    padding: 25px 18px;
+  }
+
+  .service-detail-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 }
 
-/* MOBILE */
+/* ========================================
+   MOBILE
+======================================== */
+
 @media (max-width: 650px) {
   .services-showcase {
     padding: 38px 20px;
   }
 
-  .services-showcase-inner {
-    grid-template-columns: 1fr;
-    gap: 0;
+  .services-header {
+    padding-bottom: 25px;
   }
 
   .services-eyebrow {
@@ -836,20 +977,28 @@ main {
   }
 
   .services-main-heading {
-    margin-bottom: 32px;
-    font-size: clamp(34px, 9vw, 46px);
+    font-size: clamp(36px, 9vw, 48px);
+  }
+
+  .services-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .services-selector {
+    height: auto;
   }
 
   .service-selector-button {
-    min-height: 62px;
-    padding: 16px 10px;
+    flex: none;
+    min-height: 65px;
+    padding: 14px 10px;
   }
 
   .service-detail-panel {
-    min-height: 500px;
-    padding: 35px 20px;
+    min-height: 450px;
+    padding: 25px 16px;
     border-left: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.22);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .service-detail-content h3 {
@@ -871,10 +1020,13 @@ main {
   }
 }
 
-/* ACCESSIBILITY */
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
 @media (prefers-reduced-motion: reduce) {
 
-  .service-detail-background,
+  .services-full-background,
   .service-detail-content {
     animation: none;
   }
@@ -885,13 +1037,18 @@ main {
   }
 }
 
+.services-showcase .services-sidebar .services-selector .service-selector-button {
+  padding: 10px 12px !important;
+  min-height: 55px;
+  gap: 12px;
+}
+
 .intro,
 .gallery-section,
 .reviews-section,
 .booking-section {
   text-align: center;
 }
-
 
 /* TRANSFORMATION GALLERY */
 .transformation-gallery {
@@ -1590,6 +1747,41 @@ main {
   }
 }
 
+/* MAKEUP SHOWCASE - ADMIN CONTROLLED TYPOGRAPHY */
+
+.makeup-showcase-eyebrow {
+  font-size: var(--makeup-desktop-font-size, 12px);
+}
+
+.makeup-showcase-content h2 {
+  font-size: var(--makeup-desktop-font-size, clamp(38px, 5vw, 68px));
+}
+
+.makeup-service-item {
+  font-size: var(--makeup-desktop-font-size, 15px);
+}
+
+.makeup-enquire-btn {
+  font-size: var(--makeup-desktop-font-size, 13px);
+}
+
+@media (max-width: 520px) {
+  .makeup-showcase-eyebrow {
+    font-size: var(--makeup-mobile-font-size, 10px);
+  }
+
+  .makeup-showcase-content h2 {
+    font-size: var(--makeup-mobile-font-size, 36px);
+  }
+
+  .makeup-service-item {
+    font-size: var(--makeup-mobile-font-size, 14px);
+  }
+
+  .makeup-enquire-btn {
+    font-size: var(--makeup-mobile-font-size, 11px);
+  }
+}
 
 /* ========================================
    BEAUTY EXPERIENCE SECTION
@@ -1598,14 +1790,14 @@ main {
 .beauty-experience {
   width: 100%;
   padding: 100px 5.35%;
-  background: #f8e7f1;
+  background: #e5e1e6;
 }
 
 .beauty-experience-inner {
   width: min(1490px, 100%);
   margin: 0 auto;
   padding: 65px 60px;
-  background: #ffffff;
+  background: transparent;
 }
 
 /* INTRO CONTENT */
@@ -1622,7 +1814,7 @@ main {
 .beauty-experience-eyebrow {
   display: block;
   margin-bottom: 20px;
-  color: #d34b91;
+  color: #DD33F2;
   font-family: "Manrope", sans-serif;
   font-size: 12px;
   font-weight: 800;
@@ -1645,9 +1837,9 @@ main {
 
 .beauty-experience-focus {
   margin: 0;
-  color: #d34b91;
+  color: #DD33F2;
   font-family: "Manrope", sans-serif;
-  font-size: 14px;
+  font-size: 25px;
   font-weight: 800;
   letter-spacing: 2px;
 }
@@ -1672,7 +1864,7 @@ main {
   left: 12.5%;
   right: 12.5%;
   height: 2px;
-  background: #d9b9e9;
+  background: #8a51a7;
   z-index: 0;
 }
 
@@ -1717,7 +1909,7 @@ main {
 
   margin: 0 auto 25px;
 
-  border: 3px solid #ffffff;
+  border: 3px solid #e5e1e6;
   border-radius: 50%;
 
   background: #7413C9;
@@ -1768,6 +1960,7 @@ main {
   transform: scale(1.1);
   box-shadow: 0 6px 18px rgba(116, 19, 201, 0.3);
 }
+
 
 /* ========================================
    TABLET
@@ -1885,18 +2078,51 @@ main {
   }
 }
 
+
 /* ========================================
    SPECIAL OFFERS SECTION
 ======================================== */
 
 .special-offers {
+  position: relative;
+  isolation: isolate;
   width: 100%;
   padding: 85px 5.35%;
   background: #7413C9;
   overflow: hidden;
 }
 
+/* LARGE BACKGROUND BLINK TEXT */
+
+.special-offers::after {
+  content: "BLINK";
+
+  position: absolute;
+  right: 2%;
+  bottom: -22%;
+
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+
+  font-family: "Playfair Display", serif;
+  font-size: clamp(180px, 23vw, 310px);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 12px;
+  line-height: 0.85;
+  text-transform: uppercase;
+
+  color: rgba(55, 0, 95, 0.30);
+}
+
+/* MAIN CONTENT */
+
 .special-offers-inner {
+  position: relative;
+  z-index: 1;
+
   width: min(1490px, 100%);
   margin: 0 auto;
 
@@ -1925,6 +2151,7 @@ main {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 /* HEADING */
@@ -1938,6 +2165,7 @@ main {
   font-size: clamp(36px, 5vw, 54px);
   font-weight: 400;
   line-height: 1.2;
+  letter-spacing: 0.5px;
 }
 
 /* PARAGRAPH */
@@ -1945,6 +2173,7 @@ main {
 .special-offers-content p {
   max-width: 680px;
   margin: 0;
+
   color: #f4e5ff;
 
   font-family: "Manrope", sans-serif;
@@ -1978,7 +2207,7 @@ main {
 
   font-family: "Manrope", sans-serif;
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.8px;
   text-decoration: none;
   text-transform: uppercase;
@@ -2060,6 +2289,13 @@ main {
     padding: 16px 22px;
     font-size: 11px;
   }
+
+  .special-offers::after {
+    right: -5%;
+    bottom: -10%;
+    font-size: 190px;
+    letter-spacing: 8px;
+  }
 }
 
 /* MOBILE */
@@ -2086,6 +2322,13 @@ main {
   .special-offers-btn {
     padding: 15px 24px;
   }
+
+  .special-offers::after {
+    right: -8%;
+    bottom: -3%;
+    font-size: 110px;
+    letter-spacing: 5px;
+  }
 }
 
 /* REDUCED MOTION */
@@ -2103,7 +2346,6 @@ main {
   }
 }
 
-
 /* ========================================
    CLIENT FEEDBACK SECTION
 ======================================== */
@@ -2111,7 +2353,7 @@ main {
 .reviews-section {
   width: 100%;
   padding: 100px 5.35%;
-  background: #f8e7f1;
+  background: #e6ccf2;
   overflow: hidden;
 }
 
@@ -2119,7 +2361,6 @@ main {
   width: min(1490px, 100%);
   margin: 0 auto;
   padding: 70px 60px;
-  background: #ffffff;
 }
 
 /* SECTION HEADER */
@@ -2133,7 +2374,7 @@ main {
   display: block;
   margin-bottom: 18px;
 
-  color: #d34b91;
+  color: #DD33F2;
 
   font-family: "Manrope", sans-serif;
   font-size: 12px;
@@ -2143,12 +2384,10 @@ main {
 
 .reviews-header h2 {
   margin: 0;
-
   color: #180d24;
-
   font-family: "Playfair Display", serif;
-  font-size: clamp(36px, 4.5vw, 58px);
-  font-weight: 400;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 500;
   line-height: 1.2;
 }
 
@@ -2175,7 +2414,7 @@ main {
   min-width: 0;
   padding: 32px 28px;
 
-  background: #fffafd;
+  background: #ffffff;
   border: 1px solid #f0ddeb;
   border-radius: 5px;
 
@@ -2522,7 +2761,8 @@ main {
   }
 
   .reviews-header h2 {
-    font-size: 36px;
+    font-size: 42px;
+    font-weight: 500;
   }
 
   .reviews-grid {
@@ -2567,7 +2807,10 @@ main {
   }
 }
 
-/* OUR BRANCHES SECTION */
+/* =================================
+   OUR BRANCHES SECTION
+================================= */
+
 .branches-section {
   position: relative;
   isolation: isolate;
@@ -2600,24 +2843,20 @@ main {
 .branches-eyebrow {
   display: block;
   margin-bottom: 15px;
-  color: #DD33F2;
+  color: var(--branches-eyebrow-color, #DD33F2);
   font-family: "Manrope", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 3px;
 }
 
 .branches-header h1 {
   margin: 0;
-  color: #fff;
-  font-family: Georgia, serif;
-  font-size: clamp(38px, 5vw, 58px);
-  font-weight: 500;
-}
-
-.branches-header h2 em {
-  color: #DD33F2;
-  font-style: italic;
+  color: var(--branches-heading-color, #ffffff);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(48px, 5.5vw, 68px);
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .branches-grid {
@@ -2628,15 +2867,20 @@ main {
 }
 
 .branch-card {
-  min-height: 240px;
-  padding: 32px;
+  min-height: 250px;
+  padding: 36px;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 
-  background: rgba(48, 5, 63, 0.171);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: var(--branches-card-background,
+      rgba(48, 5, 63, 0.171));
+
+  border: 1px solid var(--branches-card-border,
+      rgba(255, 255, 255, 0.3));
+
   border-radius: 8px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 
@@ -2654,25 +2898,28 @@ main {
 }
 
 .branch-location-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
+
   display: grid;
   place-items: center;
-  margin-bottom: 20px;
-  color: #DD33F2;
-  font-size: 28px;
+
+  margin-bottom: 22px;
+  color: var(--branches-icon-color, #DD33F2);
+  font-size: 32px;
 }
 
 .branch-location-icon i {
-  color: #DD33F2;
+  color: var(--branches-icon-color, #DD33F2);
 }
 
 .branch-card h4 {
-  margin: 0 0 25px;
-  color: #fff;
+  margin: 0 0 28px;
+  color: #ffffff;
   font-family: "Manrope", sans-serif;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 800;
+  line-height: 1.4;
 }
 
 .branch-directions-btn {
@@ -2681,14 +2928,17 @@ main {
   justify-content: center;
   gap: 12px;
 
-  padding: 13px 23px;
-  background: #DD33F2;
-  color: #fff;
+  padding: 14px 25px;
+
+  background: var(--branches-button-background,
+      #DD33F2);
+
+  color: var(--branches-button-text, #ffffff);
   border: none;
   border-radius: 4px;
 
   font-family: "Manrope", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   text-decoration: none;
 
@@ -2697,6 +2947,7 @@ main {
 
 .branch-directions-btn:hover {
   background: #b91bd0;
+  color: #ffffff;
   transform: translateY(-3px);
 }
 
@@ -2705,14 +2956,22 @@ main {
     padding: 75px 6%;
   }
 
+  .branches-header h1 {
+    font-size: clamp(40px, 9vw, 52px);
+  }
+
   .branches-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
 
   .branch-card {
-    min-height: 220px;
-    padding: 28px;
+    min-height: 230px;
+    padding: 30px;
+  }
+
+  .branch-card h4 {
+    font-size: 22px;
   }
 }
 
@@ -2725,13 +2984,12 @@ main {
   width: 100%;
   padding: 100px 5.35%;
   overflow: hidden;
-  background: #c997e2eb;
+  background: #e6ccf2;
 }
 
 .booking-inner {
   width: min(1490px, 100%);
   margin: 0 auto;
-
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   align-items: center;
@@ -2761,7 +3019,7 @@ main {
   max-width: 620px;
   margin: 0 0 25px;
   color: #000;
-  font-family: Georgia, serif;
+  font-family: "Playfair Display", serif;
   font-size: clamp(40px, 5vw, 65px);
   font-weight: 500;
   line-height: 1.15;
@@ -2777,8 +3035,8 @@ main {
   max-width: 520px;
   margin: 0 0 38px;
   color: #000;
-  font-family: "Manrope", sans-serif;
-  font-size: 16px;
+  font-family: "Playfair Display", serif;
+  font-size: 17px;
   line-height: 1.9;
   text-align: left;
 }
@@ -2790,37 +3048,25 @@ main {
   gap: 17px;
 }
 
-.booking-contact p {
-  margin: 0 0 5px;
-
-  color: #DD33F2;
-  font-family: "Manrope", sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-}
-
 .booking-phone {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-
-  color: #fff;
+  color: #000;
   font-family: "Manrope", sans-serif;
   font-size: 19px;
   font-weight: 700;
   text-decoration: none;
-
   transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .booking-phone i {
-  color: #DD33F2;
+  color: #7413C9;
   font-size: 21px;
 }
 
 .booking-phone:hover {
-  color: #DD33F2;
+  color: #7413C9;
   transform: translateX(7px);
 }
 
@@ -2829,21 +3075,17 @@ main {
 .booking-form-card {
   width: 100%;
   padding: 42px;
-
   background: rgba(255, 255, 255, 0.97);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-
   box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
-
   animation: beautyFadeUp 1s ease 0.2s both;
 }
 
 .booking-form-card h3 {
   margin: 0 0 30px;
-
   color: #24132c;
-  font-family: Georgia, serif;
+  font-family: "Playfair Display", serif;
   font-size: 27px;
   font-weight: 600;
   line-height: 1.35;
@@ -2857,6 +3099,10 @@ main {
   gap: 22px;
 }
 
+.booking-empty-field {
+  min-width: 0;
+}
+
 .booking-input-group {
   min-width: 0;
   display: flex;
@@ -2864,28 +3110,14 @@ main {
   gap: 9px;
 }
 
-.booking-full-width {
-  grid-column: 1 / -1;
-}
-
-.booking-input-group label {
-  color: #392342;
-  font-family: "Manrope", sans-serif;
-  font-size: 12px;
-  font-weight: 800;
-}
-
 .booking-input {
   min-height: 52px;
   display: flex;
   align-items: center;
-  gap: 12px;
   padding: 0 15px;
-
   background: #fff;
   border: 1px solid #eaddeb;
   border-radius: 5px;
-
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -2905,14 +3137,12 @@ main {
   width: 100%;
   min-width: 0;
   height: 50px;
-
   color: #392342;
   background: transparent;
   border: none;
   outline: none;
-
   font-family: "Manrope", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .booking-input input::placeholder {
@@ -2923,20 +3153,25 @@ main {
   cursor: pointer;
 }
 
-/* WHATSAPP BUTTON */
+.booking-input select:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* SUBMIT BUTTON */
 
 .booking-whatsapp-btn {
   grid-column: 1 / -1;
-  width: 100%;
+  justify-self: center;
+  width: fit-content;
+  min-width: 210px;
   min-height: 54px;
-
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-
   margin-top: 8px;
-  padding: 14px 20px;
+  padding: 14px 28px;
 
   color: #fff;
   background: #7413C9;
@@ -2953,25 +3188,40 @@ main {
     box-shadow 0.3s ease;
 }
 
-.booking-whatsapp-btn:hover {
+.booking-whatsapp-btn:hover:not(:disabled) {
   background: #DD33F2;
   transform: translateY(-4px);
   box-shadow: 0 13px 25px rgba(116, 19, 201, 0.3);
 }
 
-.booking-whatsapp-btn i:first-child {
-  font-size: 20px;
+.booking-whatsapp-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
+.booking-whatsapp-btn i {
+  font-size: 17px;
+}
+
+/* FEEDBACK AND NOTE */
+
+.booking-feedback,
 .booking-note {
   grid-column: 1 / -1;
   display: block;
+  text-align: center;
+}
 
+.booking-note {
   color: #88788e;
   font-family: "Manrope", sans-serif;
   font-size: 11px;
   line-height: 1.7;
-  text-align: center;
+}
+
+.booking-feedback.warning {
+  color: #a15c00;
+  font-weight: 600;
 }
 
 /* RESPONSIVE */
@@ -3013,12 +3263,20 @@ main {
     gap: 18px;
   }
 
-  .booking-full-width,
+  .booking-whatsapp-btn {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .booking-name-field,
+  .booking-empty-field,
   .booking-whatsapp-btn,
+  .booking-feedback,
   .booking-note {
     grid-column: 1;
   }
 }
+
 
 /* INSTAGRAM SECTION */
 
@@ -3039,12 +3297,10 @@ main {
 .instagram-header {
   width: 89.3%;
   margin: 0 auto 55px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 35px;
-
   animation: beautyFadeUp 0.9s ease both;
 }
 
@@ -3064,23 +3320,10 @@ main {
 
 .instagram-heading h2 {
   margin: 0 0 12px;
-  color: #24132c;
-  font-family: Georgia, serif;
-  font-size: clamp(35px, 4.5vw, 55px);
+  color: #000;
+  font-family: "Playfair Display", serif;
+  font-size: clamp(45px, 5vw, 60px);
   font-weight: 500;
-}
-
-.instagram-heading h2 em {
-  color: #DD33F2;
-  font-style: italic;
-}
-
-.instagram-heading p {
-  margin: 0;
-  color: #78657f;
-  font-family: "Manrope", sans-serif;
-  font-size: 14px;
-  font-weight: 700;
 }
 
 /* RIGHT SIDE */
@@ -3098,9 +3341,9 @@ main {
   align-items: center;
   gap: 10px;
   margin: 0;
-  color: #78657f;
-  font-family: "Manrope", sans-serif;
-  font-size: 15px;
+  color: #000;
+  font-family: "Playfair Display", serif;
+  font-size: 21px;
   font-weight: 700;
 }
 
@@ -3114,7 +3357,7 @@ main {
   background: #7413C9;
   border-radius: 5px;
   font-family: "Manrope", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 800;
   text-decoration: none;
   transition: all 0.35s ease;
@@ -3131,7 +3374,7 @@ main {
   font-size: 17px;
 }
 
-/* SINGLE IMAGE ROW */
+/* IMAGE MARQUEE */
 
 .instagram-marquee {
   width: 100%;
@@ -3156,10 +3399,8 @@ main {
   width: 300px;
   height: 340px;
   flex-shrink: 0;
-
   object-fit: cover;
   border-radius: 9px;
-
   box-shadow: 0 10px 25px rgba(35, 10, 45, 0.12);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
@@ -3169,10 +3410,10 @@ main {
   box-shadow: 0 15px 30px rgba(35, 10, 45, 0.2);
 }
 
-/* INFINITE RIGHT TO LEFT ANIMATION */
+/* SMOOTH INFINITE RIGHT-TO-LEFT MOVEMENT */
 
 .instagram-track-left {
-  animation: instagramMoveLeft 35s linear infinite;
+  animation: instagramMoveLeft 10s linear infinite;
 }
 
 @keyframes instagramMoveLeft {
@@ -3184,6 +3425,8 @@ main {
     transform: translateX(-50%);
   }
 }
+
+/* PAUSE WHEN HOVERING */
 
 .instagram-marquee:hover .instagram-track {
   animation-play-state: paused;
@@ -3227,6 +3470,14 @@ main {
   .instagram-image-group img {
     width: 230px;
     height: 280px;
+  }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+  .instagram-track-left {
+    animation: none;
   }
 }
 
@@ -3330,25 +3581,40 @@ main {
 
 @media (max-width: 1050px) {
   .navbar {
-    padding: 20px 24px;
+    grid-template-columns: 1fr auto;
+    min-height: 70px;
+    padding: 10px 24px;
   }
 
   .menu-toggle {
     display: block;
+    justify-self: end;
+  }
+
+  .nav-book {
+    display: none;
   }
 
   .nav-links {
     position: absolute;
-    z-index: 10;
-    top: 90px;
+    z-index: 1001;
+
+    top: 100%;
     left: 0;
     right: 0;
+
     display: none;
     align-items: stretch;
     flex-direction: column;
     gap: 0;
+
     padding: 15px 24px 24px;
-    background: #25112f;
+
+    background: rgba(37, 17, 47, 0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .nav-links.open {
@@ -3356,12 +3622,20 @@ main {
   }
 
   .nav-links>a {
-    padding: 14px 8px;
+    padding: 13px 8px;
+    font-size: 13px;
   }
 
-  .nav-links .nav-book {
-    margin-top: 10px;
+  .nav-links .mobile-nav-book {
+    display: block;
+    margin-top: 12px;
+    padding: 13px 16px;
+
     text-align: center;
+    color: #fff;
+    background: linear-gradient(135deg, #7413C9, #DD33F2);
+    border-radius: 28px;
+    font-weight: 800;
   }
 
   .hero-content {
@@ -3542,4 +3816,73 @@ main {
   margin-top: 5px;
   font-size: 11px;
   line-height: 1.5;
+}
+
+/* GALLERY CMS - ADMIN CONTROLLED TYPOGRAPHY */
+
+/* Desktop typography controlled by Django Admin */
+.transformation-eyebrow {
+  font-size: var(--gallery-desktop-font-size, 12px);
+}
+
+.transformation-gallery-header h2 span,
+.transformation-gallery-header h2 em {
+  font-size: var(--gallery-desktop-font-size, inherit);
+}
+
+.transformation-instruction {
+  font-size: var(--gallery-desktop-font-size, 13px);
+}
+
+.transformation-caption {
+  font-size: var(--gallery-desktop-font-size, 11px);
+}
+
+.transformation-instagram-btn {
+  font-size: var(--gallery-desktop-font-size, 13px);
+}
+
+/* Bootstrap icon spacing */
+.transformation-caption i {
+  display: inline-block;
+  margin-right: 7px;
+}
+
+.transformation-instruction i {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.transformation-instagram-btn i {
+  display: inline-block;
+  font-size: 1.15em;
+  transition: transform 0.35s ease;
+}
+
+.transformation-instagram-btn:hover i {
+  transform: translate(4px, -4px);
+}
+
+/* Mobile typography controlled by Django Admin */
+@media (max-width: 520px) {
+  .transformation-eyebrow {
+    font-size: var(--gallery-mobile-font-size, 10px);
+  }
+
+  .transformation-gallery-header h2 span,
+  .transformation-gallery-header h2 em {
+    font-size: var(--gallery-mobile-font-size, 36px);
+  }
+
+  .transformation-instruction {
+    font-size: var(--gallery-mobile-font-size, 12px);
+  }
+
+  .transformation-caption {
+    font-size: var(--gallery-mobile-font-size, 11px);
+  }
+
+  .transformation-instagram-btn {
+    font-size: var(--gallery-mobile-font-size, 11px);
+  }
 }

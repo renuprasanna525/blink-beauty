@@ -44,3 +44,6 @@ Thumbs.db
 *.ssl-backup
 
 *.secret-file-backup
+
+# SSL certificates and private keys
+*.pem

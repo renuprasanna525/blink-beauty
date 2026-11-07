@@ -7,6 +7,7 @@ const pool = require("./config/db");
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
 const bookingRoutes = require("./routes/bookings");
+const cmsRoutes = require("./routes/cms");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/cms", cmsRoutes);
 
 app.get("/api/health", async (req, res) => {
     try {
@@ -47,3 +49,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Beauty Parlour API running at http://localhost:${PORT}`);
 });
+
